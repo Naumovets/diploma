@@ -301,7 +301,7 @@ class VideoPlayerApp:
                         marker_2d_points = corner[0].reshape(-1, 2)
 
                         # Решаем PnP для нахождения положения маркера
-                        success, rvec, tvec = cv2.solvePnP(object_points, marker_2d_points, self.camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_AP3P, iterationsCount=200, reprojectionError=0.1)
+                        success, rvec, tvec = cv2.solvePnP(object_points, marker_2d_points, self.camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_SQPNP, iterationsCount=200, reprojectionError=0.1)
 
                         if success:
                             # Рисуем оси для маркера на изображении
@@ -359,12 +359,9 @@ class VideoPlayerApp:
                             marker_2d_points = corner[0].reshape(-1, 2)
 
                             # Решаем PnP для нахождения положения маркера
-                            success, rvec, tvec = cv2.solvePnP(object_points, marker_2d_points, self.camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_AP3P)
+                            success, rvec, tvec = cv2.solvePnP(object_points, marker_2d_points, self.camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_SQPNP)
 
                             if success:
-                                # distance = np.linalg.norm(tvec)
-
-                                # Записываем данные в CSV-файл
                                 file_writer.writerow([i, frame_number, tvec[0][0], tvec[1][0], tvec[2][0], rvec[0][0], rvec[1][0], rvec[2][0]])
 
     def toggle_playback(self):
@@ -408,7 +405,7 @@ class VideoPlayerApp:
                     marker_2d_points = corner[0].reshape(-1, 2)
 
                     # Решаем PnP для нахождения положения маркера
-                    success, rvec, tvec = cv2.solvePnP(object_points, marker_2d_points, self.camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_AP3P)
+                    success, rvec, tvec = cv2.solvePnP(object_points, marker_2d_points, self.camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_SQPNP)
 
                     if success:
                         # Вычисляем расстояние до маркера
